@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+	<Properties>
+        <Property name="basePath">${sys:catalina.home}/logs</Property>
+    </Properties>
+
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c{1}:%L - %msg%n" />
+		</Console>
+		
+		 <RollingFile name="fileLogger" fileName="${basePath}/webapp.log" filePattern="${basePath}/webapp%d{yyyy-MM-dd}.log">
+            <PatternLayout>
+                <pattern>%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c{1}:%L - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingFile>
+ 
+
+	</Appenders>
+	<Loggers>
+			<Logger name="it.almaviva.loggers" level="debug" additivity="true">
+            <appender-ref ref="fileLogger" level="debug" />
+        </Logger>
+		<Root level="info">
+			<AppenderRef ref="Console" />
+		</Root>
+	</Loggers>
+</Configuration>
